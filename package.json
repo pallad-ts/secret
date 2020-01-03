@@ -1,6 +1,6 @@
 {
   "name": "@pallad/secret",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Value object that protects secrets from being displayed in logs, serialized or compromised in any other way",
   "main": "compiled/index.js",
   "types": "compiled/index.d.ts",
@@ -39,6 +39,7 @@
     "sinon": "^7.5.0"
   },
   "dependencies": {
-    "predicates": "^2.0.3"
+    "predicates": "^2.0.3",
+    "tslib": "^1.10.0"
   }
 }
