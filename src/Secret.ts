@@ -1,20 +1,27 @@
 import {inspect} from 'util';
 
-const values = new WeakMap();
-const descriptions = new WeakMap();
-
 export class Secret<T = any> {
+    getValue!: () => T;
+
+    getDescription!: () => string;
+
     constructor(value: T, description: string = Secret.DEFAULT_DESCRIPTION) {
-        values.set(this, value);
-        descriptions.set(this, description);
-    }
-
-    getValue() {
-        return values.get(this);
-    }
-
-    getDescription() {
-        return descriptions.get(this);
+        Object.defineProperties(this, {
+            getValue: {
+                value: () => {
+                    return value;
+                },
+                enumerable: false,
+                configurable: false
+            },
+            getDescription: {
+                value: () => {
+                    return description;
+                },
+                enumerable: false,
+                configurable: false
+            }
+        });
     }
 
     toString() {
