@@ -22,14 +22,15 @@ Wraps any value and prevents it to:
 
 # Use cases
 
-* Passing around un/encrypted password
+* Passing around un/encrypted passwords
 * Storing confidential credentials (api keys, database passwords)
 * Wrapping config values
 
 # Features
 
 * 👷 Built with Typescript - full type friendly
-* ✅
+* ✅ Supports auto wrapping functions results with Secret
+* 😍 Easy integration with literally any library/framework
 
 # Community
 
@@ -43,7 +44,7 @@ npm install @pallad/secret
 
 # Usage
 
-Just wrap it with `secret` or `new Secret`. It order to retrieve value you need to explicity call `getValue` method
+Just wrap it with `secret` or `new Secret`. It order to retrieve value you need to explicitly call `getValue` method
 
 ```typescript
 import {Secret, secret} from '@pallad/secret';
@@ -59,6 +60,8 @@ protectedValue.toString(); // '**SECRET**'
 util.inspect(protectedValue); // **SECRET**
 console.log(protectedValue); // **SECRET**
 util.inspect(protectedValue, {customInspect: false}); // Secret [**SECRET**] {}
+
+console.log(protectedValue.getValue()); // 'someProtectedValue!3234#@#%4'
 ```
 
 ## Custom description
@@ -102,7 +105,6 @@ result2.then(x => {
 ## Checking if value is Secret
 
 ```typescript
-
 import {Secret, secret} from '@pallad/secret';
 
 Secret.is(new Secret('test')) // true
