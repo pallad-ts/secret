@@ -32,7 +32,7 @@ export class Secret<T = any> {
         return {};
     }
 
-    static is<T = any>(value: any): value is Secret<T> {
+    static is<T = unknown>(value: unknown): value is Secret<T> {
         return value instanceof Secret;
     }
 

@@ -8,7 +8,7 @@
     "test": "pallad-scripts test",
     "compile": "pallad-scripts compile",
     "lint": "pallad-scripts lint",
-    "prepublish": "npm run compile"
+    "prepublishOnly": "npm run compile"
   },
   "publishConfig": {
     "access": "public"
@@ -18,7 +18,8 @@
     "url": "git+https://github.com/pallad-ts/secret.git"
   },
   "files": [
-    "compiled"
+    "compiled",
+    "assets"
   ],
   "keywords": [
     "secret",
@@ -32,14 +33,14 @@
   },
   "homepage": "https://github.com/pallad-ts/secret#readme",
   "devDependencies": {
-    "@pallad/scripts": "^1.1.4",
-    "@types/jest": "^24.0.25",
-    "@types/node": "^13.1.2",
-    "@types/sinon": "^7.5.1",
-    "sinon": "^7.5.0"
+    "@pallad/scripts": "^2",
+    "@types/jest": "^27",
+    "sinon": "^9"
+  },
+  "peerDependencies": {
+    "tslib": "^2"
   },
   "dependencies": {
-    "predicates": "^2.0.3",
-    "tslib": "^1.10.0"
+    "predicates": "^2.0.3"
   }
 }
