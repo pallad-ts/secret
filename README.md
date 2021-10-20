@@ -99,3 +99,14 @@ result2.then(x => {
 })
 ```
 
+## Checking if value is Secret
+
+```typescript
+
+import {Secret, secret} from '@pallad/secret';
+
+Secret.is(new Secret('test')) // true
+Secret.is(secret('test')) // true
+Secret.is(protect(() => 'test')()) // true
+Secret.is('secret') // false
+```

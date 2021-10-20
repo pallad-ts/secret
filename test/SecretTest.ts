@@ -1,5 +1,7 @@
 import {Secret} from "@src/Secret";
 import {inspect} from "util";
+import {secret} from '@src/index';
+import {assert, IsExact} from 'conditional-type-checks';
 
 describe('Secret', () => {
     const SECRET_VALUE = 'protectedValue!@#!@';
@@ -17,7 +19,6 @@ describe('Secret', () => {
     });
 
     it('prevents being inspected', () => {
-
         expect(inspect(SECRET))
             .toEqual(SECRET.getDescription());
 
@@ -53,5 +54,23 @@ describe('Secret', () => {
 
         expect(JSON.stringify(SECRET_CUSTOM_DESC))
             .toEqual('{}');
+    });
+
+    it('checking types', () => {
+        expect(Secret.is(secret('test')))
+            .toBe(true);
+
+        expect(Secret.is(new Secret('test')))
+            .toBe(true);
+
+        expect(Secret.is('secret'))
+            .toBe(false);
+
+        expect(Secret.is({
+            getValue() {
+                return 'test'
+            }
+        }))
+            .toBe(false);
     });
 });

@@ -1,6 +1,6 @@
 {
   "name": "@pallad/secret",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Value object that protects secrets from being displayed in logs, serialized or compromised in any other way",
   "main": "compiled/index.js",
   "types": "compiled/index.d.ts",
@@ -35,6 +35,8 @@
   "devDependencies": {
     "@pallad/scripts": "^2",
     "@types/jest": "^27",
+    "@types/sinon": "^9",
+    "conditional-type-checks": "^1.0.5",
     "sinon": "^9"
   },
   "peerDependencies": {

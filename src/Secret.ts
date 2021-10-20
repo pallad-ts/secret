@@ -1,6 +1,6 @@
 import {inspect} from 'util';
 
-export class Secret<T = any> {
+export class Secret<T = unknown> {
     getValue!: () => T;
 
     getDescription!: () => string;

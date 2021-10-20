@@ -1,7 +1,7 @@
 import {Secret} from "./Secret";
 import * as is from 'predicates';
 
-export function protect<T extends protect.Func>(func: T, description?: string): (...args: any[]) => protect.Resolved<T> {
+export function protect<T extends protect.Func>(func: T, description?: string): (...args: Parameters<T>) => protect.Resolved<T> {
     return function (this: any, ...args: any[]) {
         const result = func.apply(this, args);
 
