@@ -1,4 +1,10 @@
 import {inspect} from 'util';
+import * as is from 'predicates';
+
+const TYPE = '@pallad/secret';
+const TYPE_KEY = '@type';
+
+const IS_TYPE = is.property(TYPE_KEY, is.strictEqual(TYPE));
 
 export class Secret<T = unknown> {
     getValue!: () => T;
@@ -20,6 +26,11 @@ export class Secret<T = unknown> {
                 },
                 enumerable: false,
                 configurable: false
+            },
+            [TYPE_KEY]: {
+                value: TYPE,
+                enumerable: false,
+                configurable: false,
             }
         });
     }
@@ -33,7 +44,7 @@ export class Secret<T = unknown> {
     }
 
     static is<T = unknown>(value: unknown): value is Secret<T> {
-        return value instanceof Secret;
+        return value instanceof Secret || IS_TYPE(value);
     }
 
     static DEFAULT_DESCRIPTION = '**SECRET**';

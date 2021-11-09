@@ -1,6 +1,6 @@
 {
   "name": "@pallad/secret",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Prevent your secrets from accidental leak",
   "main": "compiled/index.js",
   "types": "compiled/index.d.ts",
