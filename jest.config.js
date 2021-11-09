@@ -1,3 +1,4 @@
 module.exports = {
-    preset: '@pallad/scripts'
+    preset: '@pallad/scripts',
+    coveragePathIgnorePatterns: ['/node_module/', '<rootDir>/test/SecretCopy.ts']
 };

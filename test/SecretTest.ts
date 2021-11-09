@@ -1,7 +1,8 @@
 import {Secret} from "@src/Secret";
 import {inspect} from "util";
 import {secret} from '@src/index';
-import {assert, IsExact} from 'conditional-type-checks';
+import * as fs from 'fs';
+import * as path from 'path';
 
 describe('Secret', () => {
     const SECRET_VALUE = 'protectedValue!@#!@';
@@ -56,21 +57,57 @@ describe('Secret', () => {
             .toEqual('{}');
     });
 
-    it('checking types', () => {
-        expect(Secret.is(secret('test')))
-            .toBe(true);
+    describe('checking types', () => {
+        it('from module', () => {
+            expect(Secret.is(secret('test')))
+                .toBe(true);
 
-        expect(Secret.is(new Secret('test')))
-            .toBe(true);
+            expect(Secret.is(new Secret('test')))
+                .toBe(true);
 
-        expect(Secret.is('secret'))
-            .toBe(false);
+            expect(Secret.is('secret'))
+                .toBe(false);
 
-        expect(Secret.is({
-            getValue() {
-                return 'test'
-            }
-        }))
-            .toBe(false);
+            expect(Secret.is({
+                getValue() {
+                    return 'test'
+                }
+            }))
+                .toBe(false);
+        });
+
+
+        describe('from another copy of module', () => {
+
+            const SOURCE_SECRET = path.join(__dirname, '../src', 'Secret.ts');
+            const TARGET_SECRET = path.join(__dirname, './SecretCopy.ts');
+            beforeEach(async () => {
+                await fs.promises.copyFile(
+                    SOURCE_SECRET,
+                    TARGET_SECRET
+                );
+            });
+
+            afterEach(async () => {
+                if (fs.existsSync(TARGET_SECRET)) {
+                    await fs.promises.unlink(TARGET_SECRET);
+                }
+            });
+
+            it('checking type', () => {
+                const {Secret: NewSecret} = require(TARGET_SECRET);
+
+                const newSecret = new NewSecret(SECRET_VALUE);
+                expect(newSecret instanceof Secret)
+                    .toBe(false);
+
+                expect(Secret.is(newSecret)).toBe(true);
+                expect(NewSecret.is(new Secret(SECRET_VALUE))).toBe(true);
+
+                expect(newSecret.getValue())
+                    .toBe(SECRET_VALUE);
+            });
+        })
+
     });
 });
